@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from celery.schedules import crontab
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -121,5 +122,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Celery settings
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+
+# Celery Beat Scheduler (Optional, for periodic tasks)
+CELERY_BEAT_SCHEDULE = {
+    "every-20-seconds": {
+        "task": "app.tasks.twenty_seconds",
+        "schedule": 20,
+        # "args": (1, 2),  # Optional arguments
+    }
+}
