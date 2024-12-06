@@ -19,7 +19,7 @@ services:
             - redis
     celery:
         build: .
-        command: celery -A core worker -l INFO
+        command: celery -A core worker -B -l INFO
         volumes:
             - .:/usr/src/app
         environment:

@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.http import JsonResponse
+from .tasks import add
 
-# Create your views here.
+from datetime import datetime, timedelta
+
+def trigger_task(request):
+    result = add.apply_async(args=(1, 2), eta=datetime.utcnow()+timedelta(minutes=1))  # Call the task with arguments
+    return JsonResponse({"task_id": result.id, "status": "Task triggered"})
