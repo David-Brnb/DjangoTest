@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -129,10 +130,10 @@ CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 
 # Celery Beat Scheduler (Optional, for periodic tasks)
-CELERY_BEAT_SCHEDULE = {
-    "every-20-seconds": {
-        "task": "app.tasks.twenty_seconds",
-        "schedule": 20,
-        # "args": (1, 2),  # Optional arguments
-    }
-}
+# CELERY_BEAT_SCHEDULE = {
+#     "every-20-seconds": {
+#         "task": "app.tasks.twenty_seconds",
+#         "schedule": 20,
+#         # "args": (1, 2),  # Optional arguments
+#     }
+# }
